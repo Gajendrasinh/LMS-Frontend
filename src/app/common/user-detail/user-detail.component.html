@@ -1,0 +1,60 @@
+<div class="user-detail">
+    <form [formGroup]="userprofile" (ngSubmit)="submitForm(userprofile.value)">
+        <div *ngIf="!isEdit" class="row">
+            <div class="col-lg-2 col-md-2 col-sm-12 img-p">
+                <img [src]="profileImgUrl" alt="Avatar" class="avatar">
+            </div>
+            <div class="pt-1 col-lg-6 col-md-6 col-sm-12">
+                <h1 id="userName">User Name : {{userprofile.get('userName').value}}</h1>
+                <h4 id="clgName">Collage Name: {{ userprofile.get('college').value}}</h4>
+                <h4 id="userBatch">Course Name: {{ userprofile.get('coursename').value}}</h4>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 pt-2-5">
+                <p>DOJ : {{ userprofile.get('dob').value}}</p>
+                <p>Ph. No : {{ userprofile.get('phone').value}}</p>
+                <p>Email : {{ userprofile.get('email').value}}</p>
+            </div>
+        </div>
+        <div *ngIf="isEdit" class="row">
+            <div class="col-lg-2 col-md-2 col-sm-12 img-p">
+                <img [src]="profileImgUrl" alt="Avatar" class="avatar">
+                <label for="file-input">
+                    <i class="fa fa-pencil-square-o user-profile-edit-icon" aria-hidden="true"></i>
+                </label>
+                <input id="file-input" type="file"
+                    accept="image/png, image/gif, image/jpeg" (change)="uploadUserProfile($event,'img')" style="display: none;"/>
+                <i class="fa fa-trash-o user-profile-delete-icon" aria-hidden="true" (click)="deleteProileImg()"></i>
+
+            </div>
+            <div class="row col-lg-10 col-md-10 col-sm-12">
+                <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                    <label id="lblFirstName">First Name</label>
+                    <input type="text" class="form-control" name="First Name" id="txtFirstName"
+                        formControlName="firstname">
+                </div>
+                <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                    <label id="lblLastName">Last Name</label>
+                    <input type="text" class="form-control" name="Last Name" id="txtLastName"
+                        formControlName="lastname">
+                </div>
+                <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                    <label id="lblDateOfBirth">Date of Birth</label>
+                    <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="dob"
+                        [bsConfig]="httpService.bsConfig">
+                </div>
+                <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                    <label id="lblPhoneNo">Phone No.</label>
+                    <input type="text" class="form-control" name="Phone No" id="txtPhoneNo" formControlName="phone">
+                </div>
+                <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                    <label id="lblPassword">New Password</label>
+                    <input type="password" class="form-control" name="Password" id="txtPassword"
+                        formControlName="password">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isEdit" class="pt-2 pull-right pr-4">
+            <button class="btn btn-block btn-success" type="submit">Save</button>
+        </div>
+    </form>
+</div>

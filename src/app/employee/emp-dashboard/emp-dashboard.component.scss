@@ -1,0 +1,17 @@
+.bl-left-border {
+    border-left: 1px solid black;
+    padding-top: 4%;
+}
+
+.card-xl {
+    .card {
+        height: 19.5rem !important;
+        .card-body {
+            padding: 65% 15% 50% 15% !important;
+        }
+    }
+}
+
+h3{
+    text-transform: uppercase;
+}

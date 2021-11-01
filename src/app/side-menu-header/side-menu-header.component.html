@@ -1,0 +1,74 @@
+<div *ngIf="httpService.isShowMenu">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div *ngIf="httpService.userRole == 'admin'" class="list-group list-group-flush">
+                <div *ngFor="let menu of adminModuleSideMenu" class="menu-group">
+                    <a href="javascript:void(0)" routerLink="{{menu.routeLink}}">
+                        <img src="{{menu.imgFont}}">
+                        <span>{{menu.menuName}}</span>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="httpService.userRole == 'employee'" class="list-group list-group-flush">
+                <div *ngFor="let menu of empModuleSideMenu" class="menu-group">
+                    <a href="javascript:void(0)" routerLink="{{menu.routeLink}}">
+                        <img src="{{menu.imgFont}}">
+                        <span>{{menu.menuName}}</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="httpService.userRole == 'college'" class="list-group list-group-flush">
+                <div *ngFor="let menu of clgModuleSideMenu" class="menu-group">
+                    <a href="javascript:void(0)" routerLink="{{menu.routeLink}}">
+                        <img src="{{menu.imgFont}}">
+                        <span>{{menu.menuName}}</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="httpService.userRole == 'staff'" class="list-group list-group-flush">
+                <div *ngFor="let menu of tutorModuleSideMenu" class="menu-group">
+                    <a href="javascript:void(0)" routerLink="{{menu.routeLink}}">
+                        <img src="{{menu.imgFont}}">
+                        <span>{{menu.menuName}}</span>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="httpService.userRole == 'student'" class="list-group list-group-flush">
+                <div *ngFor="let menu of studentSideMenu" class="menu-group">
+                    <a href="javascript:void(0)" routerLink="{{menu.routeLink}}">
+                        <img src="{{menu.imgFont}}">
+                        <span>{{menu.menuName}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100" style="z-index: 4;">
+            <nav class="navbar navbar-light navbar-expand-lg navbar-expand-lg navbar-light bg-light border-bottom"
+                role="navigation">
+                <a class="navbar-brand" href="javascript:void(0)"></a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <img [src]="userUrl" alt="Avatar" class="avatar">
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link dropdown-toggle dropdown login-user-name"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            id="navbarDropdownMenuLink">
+                            {{userName}}
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="javascript:void(0)" routerLink="{{'/'+ httpService.userRole + '/dashboard'}}">Dashboard</a>
+                                <a class="dropdown-item" href="javascript:void(0)" routerLink="{{'/'+ httpService.userRole + '/profile'}}">Profile</a>
+                                <a *ngIf="httpService.userRole != 'employee' && httpService.userRole != 'admin'" class="dropdown-item" href="javascript:void(0)" routerLink="{{'/'+ httpService.userRole + '/feedback'}}">Feedback</a>
+                                <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
+                            </div>
+                        </a>
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

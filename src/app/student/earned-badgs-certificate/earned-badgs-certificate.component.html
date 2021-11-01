@@ -1,0 +1,39 @@
+<div class="body-postition">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <h3>{{title}}</h3>
+        </div>
+    </div>
+    <div *ngIf="title == 'Certificate Earned'" class="pt-2 row">
+        <div *ngIf="certificateList.length == 0" class="col-lg-9 col-md-9 col-sm-12">
+            <h4>{{title == 'Badges Earned' ? 'No Badges Earned Found' : 'No Certificate Earned Found'}}</h4>
+        </div>
+        <div *ngFor="let item of certificateList" class="pt-4  pb-4 col-md-2 col-lg-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img">
+                        <img src="./assets/img/files.png"><br>
+                        <span>Lorem Ipsum is simply</span>
+                    </div>
+                    <a href="javascript:void(0)" class="btn btn-lg btn-block btn-success"
+                        routerLink="/college/studentListing">Dowanload</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="title != 'Certificate Earned'" class="pt-2 row badges">
+        <div *ngIf="certificateList.length == 0" class="col-lg-9 col-md-9 col-sm-12">
+            <h4>{{title == 'Badges Earned' ? 'No Badges Earned Found' : 'No Certificate Earned Found'}}</h4>
+        </div>
+        <div *ngFor="let item of certificateList" class="pt-4  pb-4 col-md-2 col-lg-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img">
+                        <img src="./assets/img/files.png"><br>
+                        <span>Lorem Ipsum is simply</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

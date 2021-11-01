@@ -1,0 +1,20 @@
+<div class="modal-body">
+    <div class="container common-alert">
+        <a href="javascript:void(0)" (click)="close('N')"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <h2> {{alertType}}</h2>
+        <div class="pt-2 row">
+            <div class="pb-4 col-md-12 p-r-l-10">
+                <span>{{msg}}</span>
+            </div>
+            <div *ngIf="isBtnShowOK" class="pb-4 col-md-12">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="close('Y')"> Ok</button>
+            </div>
+            <div *ngIf="!isBtnShowOK" class="pb-2 col-md-6">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="close('Y')"> Yes</button>
+            </div>
+            <div *ngIf="!isBtnShowOK" class="pb-2 col-md-6">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="close('N')">No</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+h4{
+    font-size: 1rem;
+}
+.card {
+    height: 9.8rem;
+    .card-body {
+        padding: 15% 0%;
+        .card-img {
+            margin-bottom: 34px;
+            img {
+                padding: 5px;
+                width: 30px;
+                height: 30px;
+            }
+        }
+        span {
+            color: #f3663b;
+            font-size: 14px;
+        }
+        .btn-success {
+            border-radius: 1.25rem;
+        }
+    }
+}
+
+.badges {
+    .card {
+        height: 9.8rem;
+        .card-body {
+            padding: 25% 0% !important;
+        }
+    }
+}

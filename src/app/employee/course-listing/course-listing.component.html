@@ -1,0 +1,54 @@
+<div class="body-postition">
+    <div class="pt-3 row">
+        <div class="col-md-3 col-lg-3 col-sm-12">
+            <label id="lblNameOfCollage">Total Courses</label>
+            <div class="card">
+                <div class="card-body">
+                    <span>{{totalCourseCount}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9 col-sm-12">
+            <div class="row">
+                <div class="pb-2 col-md-6 col-lg-6 col-sm-12">
+                    <label id="lblNameOfCollage">Select Collage</label>
+                    <select class="form-control" placeholder="Select Collage"  [(ngModel)]="selectedClg">
+                        <option *ngFor="let item of collagesList" [value]="item._id">{{item.name}}</option>
+                    </select>
+                </div>
+                <!-- (change)="getDepartMentList(collagesList,selectedClg)" -->
+                <!-- <div class="pb-2 col-md-4 col-lg-4 col-sm-12">
+                    <label id="lblNameOfCollage">Select Department</label>
+                    <select placeholder="Select Collage" class="form-control" [(ngModel)]="selectedDprt">
+                        <option *ngFor="let item of departmentList" [value]="item">{{item}}</option>
+                    </select>
+                </div> -->
+                <!-- <div class="pb-2 col-md-4 col-lg-4 col-sm-12">
+                    <label id="lblNameOfCollage">Select Course</label>
+                    <select placeholder="Select Course" class="form-control" [(ngModel)]="selectedCourse">
+                        <option *ngFor="let item of coursettblList" [value]="item._id">{{item.name}}</option>
+                    </select>
+                </div> -->
+                <div class="pb-2 col-md-6 col-lg-6 col-sm-12">
+                    <label id="lblNameOfCollage">Search</label>
+                    <input type="text" class="form-control" [(ngModel)]="searchFilter">
+                </div>
+                <div class="pb-2 col-md-12 col-lg-12 col-sm-12">
+                    <div class="pr-0 pt-2 col-md-3 col-lg-3 col-sm-12 pull-right">
+                        <button type="button" class="btn btn-lg btn-block btn-success" (click)="addNewCourse()"><i class="fa fa-plus" aria-hidden="true"></i> Add New Course</button>
+                    </div>
+                    <div class="pr-0 pt-2 col-md-2 col-lg-2 col-sm-12 pull-right">
+                        <button type="button" class="btn btn-lg btn-block btn-success" (click)="clear('Y')">Clear</button>
+                    </div>
+                    <div class="pr-0 pt-2 col-md-2 col-lg-2 col-sm-12 pull-right">
+                        <button type="button" class="btn btn-lg btn-block btn-success" (click)="getCourseTabListingDetail()"><i class="fa fa-filter"
+                                aria-hidden="true"></i> Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pt-4 row">
+        <div id="course-table" class="tabulator-table"></div>
+    </div>
+</div>

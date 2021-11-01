@@ -1,0 +1,32 @@
+<div class="body-postition">
+    <form [formGroup]="feedbackFrm" (ngSubmit)="submitFeedback(feedbackFrm.value)">
+        <div class="pt-3 row">
+            <div class="pb-3 pt-3 col-lg-12 col-md-12 col-sm-12">
+                <h3>{{title}}</h3>
+            </div>
+            <div class="pt-2 col-lg-3 col-md-3 col-sm-12">
+                <label id="lblName">Name</label>
+                <input type="text" class="form-control" name="Name" id="txtName" formControlName="name">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-3 col-md-3 col-sm-12">
+                <label id="lblEmail">Email</label>
+                <input type="email" [class.is-invalid] = "feedbackFrm.get('email').invalid && feedbackFrm.get('email').touched" class="form-control" name="Name" id="txtEmail" formControlName="email">
+                <small class="text-danger" *ngIf="feedbackFrm.get('email').errors?.pattern">Email address is invalid</small> 
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-6 col-md-6 col-sm-12">
+                <label id="lblComment">Comment</label>
+                <textarea type="text" rows="3" class="form-control" name="Comment" id="txtComment" formControlName="comment"></textarea>
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button type="submit" [disabled]="!feedbackFrm.valid"
+                    class="btn btn-lg btn-block btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

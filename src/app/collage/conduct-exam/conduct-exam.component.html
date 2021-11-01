@@ -1,0 +1,40 @@
+<div class="body-postition">
+    <div class="pt-2 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="btn-group btn-group-toggle w-100" ngbRadioGroup name="radioBasic" [(ngModel)]="examType">
+                <label ngbButtonLabel class="btn-primary" (click)="choiceQuestionList('mcq')">
+                    <input ngbButton type="radio" value="mcq"> Multiple Choice Questions
+                </label>
+                <label ngbButtonLabel class="btn-primary" (click)="choiceQuestionList('essay')">
+                    <input ngbButton type="radio" value="essay"> Essay
+                    Questions
+                </label>
+                <label ngbButtonLabel class="btn-primary" (click)="choiceQuestionList('code')">
+                    <input ngbButton type="radio" value="code"> Code test
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="pt-4 pb2 row">
+        <div class="col-md-7 col-sm-12">
+            <h3>Perviously Conducted Tests</h3>
+        </div>
+        <div class="col-md-3 col-sm-12 pull-right">
+            <ng-select class="pt-2" *ngIf="isShowClgSelect" [multiple]="false" [clearable]="true"
+                [(ngModel)]="selectedClg" placeholder="Select Collage" (change)="clgChange(selectedClg)">
+                <ng-option *ngFor="let item of collageList" [value]="item._id">{{item.name}}</ng-option>
+            </ng-select>
+            <button *ngIf="isShowViewExamResultBtn" type="button" class="btn btn-lg btn-block btn-success"
+                (click)="viewExamResult()">Exam Result</button>
+        </div>
+        <div class="col-md-2 col-sm-12 pull-right">
+            <!-- <button type="button" class="btn btn-lg btn-block btn-success" (click)="addNewExam()">Add New Exam</button> -->
+            <button type="button" class="btn btn-lg btn-block btn-success" (click)="importModalaPopup()"><i class="fa fa-plus" aria-hidden="true"></i> Import</button>
+        </div>
+    </div>
+    <div class="pt-4 row">
+        <div class="col-md-12 col-sm-12">
+            <div id="exam-table" class="tabulator-table"></div>
+        </div>
+    </div>
+</div>

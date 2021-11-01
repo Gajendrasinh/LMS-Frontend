@@ -1,0 +1,157 @@
+<div class="body-postition">
+  <div *ngIf="!isStartExam" class="pt-4 text-center">
+    <label>Are you Sure you want to start exam?</label>
+    <br />
+    <button
+      class="btn btn-success mr-4"
+      type="button"
+      (click)="examStartCancel('start')"
+    >
+      Start
+    </button>
+    <button
+      class="btn btn-success ml-4"
+      type="button"
+      (click)="examStartCancel('cancel')"
+    >
+      Cancel
+    </button>
+  </div>
+  <div *ngIf="questionPaper && isStartExam" class="">
+    <div class="row exam-heading">
+      <h2 class="exam-name">
+        {{ questionPaper.name }} - {{ questionPaper.examType | uppercase }}
+      </h2>
+      <h2 class="current-question">
+        Question {{ currentQuestion + 1 }}/{{ totalQuestionsLength }}
+      </h2>
+      <button
+        type="button"
+        class="btn btn-small btn-block btn-success"
+        (click)="contactUsAlert()"
+      >
+        Contact Us
+      </button>
+    </div>
+    <div class="row question-section">
+      <div class="row" *ngIf="questionPaper.examType === 'mcq'">
+        <p class="question">{{ questionsArray[currentQuestion].question }}</p>
+        <div class="row options">
+          <div
+            *ngFor="
+              let option of questionsArray[currentQuestion].options;
+              let i = index
+            "
+            class="option"
+          >
+            <p id="{{ i }}">
+              {{ optionTags[i] | uppercase }} : {{ option[optionTags[i]] }}
+            </p>
+            <input
+              type="checkbox"
+              attr.for="{{ i }}"
+              value="option[optionTags[i]]"
+              (change)="handleSelectOption($event, optionTags[i], i)"
+            />
+          </div>
+        </div>
+        <div class="row btn-sections">
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleNextQuestion()"
+          >
+            Next
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleSkipQuestion()"
+          >
+            Skip
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            [disabled]="questionsArray.length - 1 != currentQuestion"
+            (click)="submitTestConfirm()"
+          >
+            Submit Test
+          </button>
+        </div>
+      </div>
+      <div class="row essay-section" *ngIf="questionPaper.examType === 'essay'">
+        <p class="question">{{ questionsArray[currentQuestion].question }}</p>
+        <div class="row">
+          <textarea
+            rows="12"
+            class="text-editor"
+            placeholder="Type your answer here..."
+            [value]="essayValue"
+            (keyup)="handleEssay($event, 'essay')"
+          ></textarea>
+        </div>
+        <div class="row btn-sections">
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleNextQuestion()"
+          >
+            Next
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleSkipQuestion()"
+          >
+            Save
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            [disabled]="questionsArray.length - 1 != currentQuestion"
+            (click)="submitTestConfirm()"
+          >
+            Submit Test
+          </button>
+        </div>
+      </div>
+      <div class="row essay-section" *ngIf="questionPaper.examType === 'code'">
+        <p class="question">{{ questionsArray[currentQuestion].question }}</p>
+        <div class="row">
+          <textarea
+            rows="12"
+            class="text-editor"
+            placeholder="Type your answer here..."
+            [value]="codeValue"
+            (keyup)="handleEssay($event, 'code')"
+          ></textarea>
+        </div>
+        <div class="row btn-sections">
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleNextQuestion()"
+          >
+            Next
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="handleSkipQuestion()"
+          >
+            Skip
+          </button>
+          <button
+            class="btn btn-success"
+            type="button"
+            [disabled]="questionsArray.length - 1 != currentQuestion"
+            (click)="submitTestConfirm()"
+          >
+            Submit Test
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+<div class="body-postition">
+  <form [formGroup]="courseForm" (ngSubmit)="submitCourse(courseForm.value)">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <label id="lblCourseName">Course Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="Course Name"
+          id="txtCourseName"
+          formControlName="courseName"
+        />
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label id="lblCourseLogo">Course logo</label>
+        <div class="custom-file">
+          <input
+            type="file"
+            class="custom-file-input"
+            id="customFile"
+            #fileUploadImg
+            accept="image/png, image/gif, image/jpeg"
+            (change)="fileSelectChange($event, 'img')"
+          />
+          <label class="custom-file-label" for="customFile">{{
+            courImgName == "" ? "Upload file" : courImgName
+          }}</label>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <label id="lblCourseLogo">Course Document</label>
+        <div class="custom-file">
+          <input
+            type="file"
+            class="custom-file-input"
+            id="customDocument"
+            #fileUploadDoc
+            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                    text/plain, application/pdf, image/*"
+            (change)="fileSelectChange($event, 'file')"
+          />
+          <label class="custom-file-label" for="customDocument">{{
+            courDocName == "" ? "Upload file" : courDocName
+          }}</label>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <label class="w-90" for="doj">Category</label>
+        <ng-select
+          placeholder="Select Category"
+          [multiple]="false"
+          [clearable]="true"
+          (change)="categorySel(courseForm.value.category)"
+          formControlName="category"
+        >
+          <ng-option *ngFor="let item of categories" [value]="item">{{
+            item.name
+          }}</ng-option>
+        </ng-select>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <label class="w-90" for="doj">Subcategory</label>
+        <ng-select
+          placeholder="Select Subcategory"
+          [multiple]="false"
+          [clearable]="true"
+          formControlName="subCategory"
+        >
+          <ng-option *ngFor="let item of subCategories" [value]="item._id">{{
+            item.name
+          }}</ng-option>
+        </ng-select>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <label id="lblCourseName">Course Price</label>
+        <input
+          type="text"
+          class="form-control"
+          name="Course Price"
+          id="price"
+          formControlName="price"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <label id="lblCourseName">Course Discount in %</label>
+        <input
+          type="text"
+          class="form-control"
+          name="Course Discount in %"
+          id="discount"
+          formControlName="discount"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <label id="lblCourseName">Created By</label>
+        <input
+          type="text"
+          class="form-control"
+          name="Created By"
+          id="createdBy"
+          formControlName="createdBy"
+        />
+      </div>
+    </div>
+
+    <div class="pt-3 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <label id="lblWebinarTime">About Course</label>
+        <!-- <textarea name="About Course" class="form-control" id="txtAboutCourse" cols="30" rows="5"
+                    formControlName="courseDescription"></textarea> -->
+        <div class="editor">
+          <ngx-editor-menu
+            [editor]="editor"
+            [toolbar]="toolbar"
+          ></ngx-editor-menu>
+          <ngx-editor
+            [editor]="editor"
+            formControlName="courseDescription"
+            [disabled]="false"
+            [placeholder]="'Type here...'"
+          ></ngx-editor>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 text-right mt-3 mb-3">
+        <button
+          type="button"
+          class="btn btn-lg btn-success"
+          (click)="addChapter()"
+        >
+          + Add Chapter
+        </button>
+
+        <ng-container>
+          <div class="row" *ngFor="let chap of chapters">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-left mt-3 mb-3">
+              <label id="lblCourseName">Chapter Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="Chapter Name"
+                id="chapterName_{{ chap.chapter }}"
+                formControlName="chapterName_{{ chap.chapter }}"
+              />
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 text-left mt-3 mb-3">
+              <label id="lblWebinarTime">Chapter Description</label>
+              <div class="editor">
+                <ngx-editor-menu
+                  [editor]="editor"
+                  [toolbar]="toolbar"
+                ></ngx-editor-menu>
+                <ngx-editor
+                  [editor]="chap.editor"
+                  formControlName="chapterDescription_{{ chap.chapter }}"
+                  [disabled]="false"
+                  [placeholder]="'Type here...'"
+                ></ngx-editor>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="pt-3 row">
+      <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+        <button
+          type="submit"
+          [disabled]="!courseForm.valid"
+          class="btn btn-lg btn-block btn-success"
+        >
+          {{
+            isEdit
+              ? "Edit
+                    course"
+              : "Add new
+                    course"
+          }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

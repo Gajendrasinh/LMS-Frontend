@@ -1,0 +1,63 @@
+<div class="body-postition">
+    <h3 style="color:white">Schedule New Webinar</h3>
+    <form [formGroup]="webinarForm" (ngSubmit)="addNewWebinar(webinarForm.value)">
+        <div class="pt-3 row">
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblWebinarCourse">Webinar Course</label>
+                <input type="text" class="form-control" name="Webinar Course" id="txtWebinarCourse"
+                    formControlName="name">
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblWebinarTime">Webinar Date</label>
+                <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="date"
+                    [bsConfig]="httpService.bsConfig">
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblTimeDuration">Time Duration</label>
+                <input [ngxTimepicker]="picker" class="form-control" name="Time Duration"
+                    id="txtTimeDuration" formControlName="time">
+                <ngx-material-timepicker #picker></ngx-material-timepicker>
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblCollageName">Collage Name</label>
+                <select class="form-control" formControlName="college" name="Collage Name" id="txtCollageName"
+                    (change)="getDepartMentList(collageList,webinarForm.value)">
+                    <option *ngFor="let item of collageList" [value]="item._id">{{item.name}}
+                        {{item.lastname}}</option>
+                </select>
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblDepartment">Department</label>
+                <select class="form-control" formControlName="department" name="Department Name" id="txtDepartmentName">
+                    <option *ngFor="let item of departMentList" [value]="item">{{item}}
+                        {{item.lastname}}</option>
+                </select>
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblCourseName">Course Name</label>
+                <select class="form-control" formControlName="coursename" name="Course Name" id="txtCourseName">
+                    <option *ngFor="let item of courseList" [value]="item._id">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblWebinarPassword">Webinar URL</label>
+                <input type="text" class="form-control" name="Webinar URL" id="txtWebinarURL" formControlName="url">
+            </div>
+            <div class="pt-2 col-md-3 col-sm-12">
+                <label id="lblWebinarPassword">Password(Optional)</label>
+                <input type="text" class="form-control" name="Webinar Password" id="txtWebinarPassword"
+                    formControlName="password">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2  col-lg-2 col-md-6 col-sm-12">
+                <button type="submit" [disabled]="!webinarForm.valid"
+                    class="btn btn-lg btn-block btn-success">Submit</button>
+            </div>
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="allWebinarListing()">View All
+                    webinar</button>
+            </div>
+        </div>
+    </form>
+</div>

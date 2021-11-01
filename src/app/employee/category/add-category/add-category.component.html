@@ -1,0 +1,81 @@
+<div class="body-postition std-clg-listing">
+  <div class="pt-3 row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+      <h4 class="title">Add New Category</h4>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12">
+      <form
+        [formGroup]="categoryForm"
+        (ngSubmit)="saveCategory(categoryForm.value)"
+      >
+        <div class="pt-3 row">
+          <div class="col-md-3 col-lg-3 col-sm-3">
+            <label id="lblDepartment">Category</label>
+            <ng-select
+              [multiple]="false"
+              [clearable]="true"
+              (change)="categorySel(categoryForm.value.name)"
+              formControlName="name"
+              placeholder="Select Category"
+            >
+              <ng-option *ngFor="let item of categories" [value]="item._id">{{
+                item.name
+              }}</ng-option>
+            </ng-select>
+          </div>
+
+          <div
+            class="col-md-3 col-lg-3 col-sm-3"
+            *ngIf="categoryForm.value.name == 'Add New Category'"
+          >
+            <label>Category</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Category"
+              id="scategory"
+              formControlName="tmpname"
+            />
+          </div>
+
+          <div class="col-md-3 col-lg-3 col-sm-3">
+            <label>Sub Category</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Sub Category"
+              id="subCategory"
+              formControlName="subCategory"
+            />
+          </div>
+
+          <div class="col-md-3 col-lg-3 col-sm-3">
+            <label>Sub Category</label>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="customFile"
+                #fileUploadImg
+                accept="image/png, image/gif, image/jpeg"
+                (change)="fileSelectChange($event)"
+              />
+              <label class="custom-file-label" for="customFile">{{
+                categoryLogo == "" ? "Upload file" : categoryLogo
+              }}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 row">
+          <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+            <button type="submit" class="btn btn-lg btn-block btn-success">
+              {{ isEdit ? "Edit Category" : "Add Category" }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

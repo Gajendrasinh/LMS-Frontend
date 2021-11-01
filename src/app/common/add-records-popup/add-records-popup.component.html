@@ -1,0 +1,82 @@
+<div class="modal-body">
+    <div class="container">
+        <a href="javascript:void(0)" (click)="uploadOperation('N')"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <h2 *ngIf="data.title"> {{!isbulkUpload ? 'add new' : 'Bulk upload'}} {{data.title}}</h2>
+        <form [formGroup]="bulkUploadForm">
+            <div class="pt-2 row">
+                <div *ngIf="isShowClgSelect" class="pt-2 pb-4 col-md-12">
+                    <select class="form-control" [(ngModel)]="selectedClg" name="Collage Name" id="txtCollageName" placeholder="Select Collage">
+                        <option *ngFor="let item of collageList" [value]="item._id">{{item.name}}
+                            {{item.lastname}}</option>
+                    </select>
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblCourse">Course</label>
+                    <ng-select [multiple]="false" [clearable]="true" formControlName="course" placeholder="Select Course">
+                        <ng-option *ngFor="let item of courseList" [value]="item._id">{{item.name}}</ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblName">Name</label>
+                    <input type="text"  class="form-control" name="Name" id="txtName"
+                        formControlName="name">
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblType">Exam Type</label>
+                    <ng-select [multiple]="false" [clearable]="true" formControlName="examType" placeholder="Select Exam Type">
+                        <ng-option value="mcq">Multiple Choice Questions</ng-option>
+                        <ng-option value="essay">Essay</ng-option>
+                        <ng-option value="code">CODE</ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblType">No. of Attamps</label>
+                    <input type="number"  class="form-control" name="No. of Attamps" id="txtNoAttames"
+                        formControlName="attempts">
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblExamDate">Exam Date</label>
+                    <input class="form-control"  #datepickerYMD="bsDatepicker" bsDatepicker formControlName="date"
+                        [bsConfig]="httpService.bsConfig">
+                </div>
+                <div *ngIf="isExamBulk" class="pt-2 pb-4 col-md-12">
+                    <label id="lblTimeDuration">Time Duration</label>
+                    <input type="text"  class="form-control" name="Time" id="txtTimeDuration"
+                        formControlName="time">
+                    <!-- <input [ngxTimepicker]="picker"  class="form-control" name="Time Duration" id="txtTimeDuration"
+                        formControlName="time">
+                    <ngx-material-timepicker #picker></ngx-material-timepicker> -->
+                </div>
+                <div class="pb-4 col-md-12 pl-35">
+                    <div class="card">
+                        <div *ngIf="!isbulkUpload" class="card-body">
+                            <img src="../../../assets/img/upload.png">
+                        </div>
+                        <div *ngIf="isbulkUpload" class="card-body">
+                            <label for="file-input">
+                                <img src="../../../assets/img/upload.png" />
+                            </label>
+                            <input id="file-input" type="file"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                (change)="fileChangeEvent($event)" />
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!isbulkUpload" class="pb-4 col-md-6">
+                    <button type="button" class="btn btn-lg btn-block btn-success"
+                        (click)="uploadOperation('single')">single
+                        upload</button>
+                </div>
+                <div *ngIf="!isbulkUpload" class="pb-4 col-md-6">
+                    <button type="button" class="btn btn-lg btn-block btn-success" (click)="uploadOperation('bulk')">bulk
+                        upload</button>
+                </div>
+                <div *ngIf="isbulkUpload" class="pb-3 col-md-12 text-center">
+                    <p *ngIf="csvFileName != ''" style="color: white;">{{csvFileName}}</p>
+                    <button type="button" [disabled]="csvFileName == ''" class="btn btn-lg btn-success"
+                        (click)="bulckUpload(data.title)">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

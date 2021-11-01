@@ -1,0 +1,33 @@
+<div class="body-postition">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3>{{title}}</h3>
+        </div>
+        <div *ngIf="title != 'My course'" class="col-lg-4 col-md-4 col-sm-12">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <div *ngIf="title != 'My course'" class="col-lg-2 col-md-2 col-sm-12 pull-right">
+            <button type="button" class="btn btn-lg btn-block btn-success"><i class="fa fa-filter"
+                    aria-hidden="true"></i> Filter</button>
+        </div>
+        <div *ngIf="title != 'My course'" class="col-lg-2 col-md-2 col-sm-12 pull-right">
+            <button type="button" class="btn btn-lg btn-block btn-success">Clear</button>
+        </div>
+    </div>
+    <div class="pt-4 row">
+        <div *ngIf="courseList.length == 0" class="col-lg-4 col-md-4 col-sm-12">
+            <h4>No Course Found</h4>
+        </div>
+        <div class="pb-4 col-lg-3 col-md-6 col-sm-12" *ngFor="let item of courseList">
+            <div class="card">
+                <div class="card-body">
+                    <img src='../../../assets/img/webinar-img.png'>
+                    <h3 class="pl-1">{{item.name}}</h3>
+                    <p class="pl-1" [innerHTML]="item.description">} </p>
+                    <button class="btn btn-viewmore" (click)="courseDetail(item)">{{title == 'My course' ? 'View more' :
+                        'Enrolled now'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

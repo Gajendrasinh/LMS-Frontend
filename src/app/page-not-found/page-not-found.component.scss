@@ -1,0 +1,16 @@
+$font-color-yellow: #fdee1c;
+
+.page-not-found {
+    text-align: center;
+    padding-top: 15%;
+    i {
+        font-size: 150px;
+        color: $font-color-yellow;
+        padding-bottom: 2%;
+    }
+    label {
+        color: $font-color-yellow;
+        font-size: 25px;
+        font-weight: 500;
+    }
+}

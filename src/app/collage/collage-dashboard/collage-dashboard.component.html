@@ -1,0 +1,83 @@
+<div class="body-postition clg-dash">
+  <div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="pb-4 col-md-6 col-lg-6">
+          <h3 class="pb-2">Total Number of Students</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img">
+                <img src="./assets/img/files.png" /><br />
+                <span>{{totalStudent}}</span>
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="btn btn-lg btn-block btn-success"
+                routerLink="/college/studentListing"
+                >View More</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="pb-4 col-md-6 col-lg-6">
+          <h3 class="pb-2">Total Number of Staff</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img">
+                <img src="./assets/img/files.png" /><br />
+                <span>{{totalStaff}}</span>
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="btn btn-lg btn-block btn-success"
+                routerLink="/college/staffListing"
+                >View More</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="pt-2 col-md-6 col-lg-6">
+          <h3 class="pb-2">Total Number of Courses</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img">
+                <img src="./assets/img/files.png" /><br />
+                <span>{{totalCourse}}</span>
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="btn btn-lg btn-block btn-success"
+                routerLink="/college/courses/by-categories"
+                >View More</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="pt-2 col-md-6 col-lg-6">
+          <h3 class="pb-2">Total Number of Report</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img">
+                <img src="./assets/img/files.png" /><br />
+                <span>{{totalReport}}</span>
+              </div>
+              <a
+                href="javascript:void(0)"
+                class="btn btn-lg btn-block btn-success"
+                >View More</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 bl-left-border">
+      <echarts
+        [options]="chartOption"
+        [autoResize]="true"
+        [initOpts]="initOpts"
+        class="bar-chart"
+      ></echarts>
+    </div>
+  </div>
+</div>

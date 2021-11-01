@@ -1,0 +1,21 @@
+<div class="body-postition">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <h3>{{title}}</h3>
+        </div>
+        <div *ngIf="title == 'Upcoming Test'" class="col-lg-3 col-md-3 col-sm-12 pull-right">
+            <button type="button" class="btn btn-lg btn-block btn-success" (click)="perviousExamBtn()">Pervious Exam Result</button>
+        </div>
+    </div>
+    <div class="pt-2 row">
+        <div class="pt-4 pb-2 col-md-12 col-lg-12 col-sm-12">
+            <div *ngIf="title == 'Upcoming Test'" id="upcomming-exam-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Upcomming Webinar'" id="webinar-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Document File'" id="document-file-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Pervious Exam Result' || title == 'Exam Result'" id="pervious-exam-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Student Exam Attendance'" id="exam-attendance-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Feedback'" id="feedback-table" class="tabulator-table"></div>
+            <div *ngIf="title == 'Exam Pending Marking'" id="exam-check-table" class="tabulator-table"></div>
+        </div>
+    </div>
+</div>

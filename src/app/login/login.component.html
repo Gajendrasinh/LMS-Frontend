@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12 user-login">
+        <form [formGroup]="loginForm" (ngSubmit)="signIn(loginForm.value)">
+            <img class="logo" [src]="logoUrl">
+            <h3 class="pt-4">login</h3>
+            <div class="pt-2 col-lg-8 col-md-12 col-sm-10">
+                <label>Login Id</label>
+                <input type="text" class="form-control" formControlName="username" name="username">
+            </div>
+            <div class="pt-2 col-lg-8 col-md-12 col-sm-10">
+                <label>Password</label>
+                <input type="password" formControlName="password" name="password" class="form-control"
+                    autocomplete="off" autocorrect="off" autocapitalize="none">
+            </div>
+            <div class="pt-2 col-lg-8 col-md-12 col-sm-10">
+                <label>Role</label>
+                <select class="form-control" formControlName="role">
+                    <option value="admin">Admin</option>
+                    <option value="employee">Employee</option>
+                    <option value="college">College</option>
+                    <option value="staff">Tutor</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="pt-5 col-lg-8 col-md-12 col-sm-10">
+                <label class="wrong-Login-msg" *ngIf="isLoginErr != null && isLoginErr != ''">{{isLoginErr}}</label>
+                <button class="btn btn-lg btn-block btn-success" type="submit"
+                [disabled]="!loginForm.valid">Login</button>
+                <a href="javascript:;" class="pt-3 pb-3 float-right" (click)="forgotPassword()">Forgot password</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12 login-detail">
+        <h3>Welcome to</h3>
+        <h3>Smart</h3>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s,</p>
+        <div class="powered-by">
+            <label>Powered By</label><br>
+            <img [src]="logoUrl">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="body-postition">
+    <form [formGroup]="collageForm" (ngSubmit)="submitcollage(collageForm.value)">
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblNameOfCollage">Name of collage</label>
+                <input type="text" class="form-control" name="Name of collage" id="txtNameOfCollage" formControlName="name">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCollageLogo">Collage logo</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" #fileUploadImg
+                        accept="image/png, image/gif, image/jpeg" (change)="fileSelectChange($event)">
+                    <label class="custom-file-label" for="customFile">{{clgLogo == ''? 'Upload file' :
+                        clgLogo}}</label>
+                </div>
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCollageId">Collage Id</label>
+                <input type="text" class="form-control" name="Collage Id" id="txtCollageId" disabled>
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblDepartment">Department</label>
+                <ng-select  [multiple]="true" [clearable]="true" formControlName="department" placeholder="Select Department">
+                    <ng-option *ngFor="let item of departmentList" [value]="item">{{item}}</ng-option>
+                 </ng-select>
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCollagePhoneNo">Collage Phone No.</label>
+                <input type="number" class="form-control" name="Collage Phone No" id="txtCollagePhoneNo" formControlName="phone">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCollageEmailId">Collage Email Id </label>
+                <input type="text" class="form-control" name="Collage Email Id" id="txtCollageEmailId" formControlName="email">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblNoOfStaffs">No. of Staffs</label>
+                <input type="number" class="form-control" name="No. of Staffs" id="txtNoOfStaffs" formControlName="noofstaffs">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblLocation">Location</label>
+                <input type="text" class="form-control" name="Location" id="txtLocation" formControlName="address">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button type="submit" class="btn btn-lg btn-block btn-success">{{isEdit ? "Edit" : "Add"}}</button>
+            </div>
+        </div>
+    </form>
+</div>

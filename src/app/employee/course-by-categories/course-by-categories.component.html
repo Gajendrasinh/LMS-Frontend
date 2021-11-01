@@ -1,0 +1,42 @@
+<div class="body-postition">
+  <div class="pt-3 row">
+    <div class="col-md-7 col-lg-7 col-sm-12">
+      <h3 class="title">CATEGORIES</h3>
+    </div>
+    <div class="col-md-5 col-lg-5 col-sm-12">
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search"
+      />
+      <i class="pl-1 fa fa-search search-icon" aria-hidden="true"></i>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-sm-12 mt-3">
+      <div class="pt-3 row">
+        <div
+          class="col-md-3 col-lg-3 col-sm-12 bg-color mb-2"
+          *ngFor="let category of categories"
+        >
+          <div
+            class="card"
+            routerLink="{{
+              '/' + httpService.userRole + '/' + category.id + '/course-listing'
+            }}"
+          >
+            <img
+              src="{{ httpService.filePath + category.icon }}"
+              onerror="this.src='assets/img/no-image.jpg'"
+              class="card-img-top"
+              alt="Category Icon"
+            />
+
+            <div class="card-body">
+              <p class="card-text">{{ category.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

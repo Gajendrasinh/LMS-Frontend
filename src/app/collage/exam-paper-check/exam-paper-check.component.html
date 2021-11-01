@@ -1,0 +1,37 @@
+<div class="body-postition">
+    <div *ngIf="isShow">
+        <h3 class="pt-2 pb-2">Exam Paper Check</h3>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblQuestion">Question {{index + 1}} / {{lastQueIndex}}</label>
+                <input type="text" class="form-control" name="Question" id="txtQuestion"
+                [ngModel]="question" disabled>
+            </div>
+            <div class="pt-2 col-lg-3 col-md-3 col-sm-12">
+                <label id="lblMark">Mark for this Question</label>
+                <input type="number" class="form-control" name="Mark" id="txtMark" [ngModel]="mark" (change)="markChange($event)">
+            </div>
+            <div class="pt-2 col-lg-3 col-md-3 col-sm-12">
+                <label id="lblMark">Total Mark</label>
+                <input type="number" class="form-control" name="Mark" id="txtMark" disabled [ngModel]="totalMark">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-10 col-md-10 col-sm-12">
+                <textarea rows="12" class="form-control" disabled
+                [ngModel]="answer"></textarea>
+            </div>
+        </div>
+
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button class="btn btn-lg btn-block btn-success" type="button" (click)="nextQuestion()" [disabled]="(index + 1) == lastQueIndex">
+                    Next
+                </button>
+            </div>
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="submitForm()" [disabled]="(index + 1) != lastQueIndex">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

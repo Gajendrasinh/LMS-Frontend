@@ -1,0 +1,75 @@
+<div class="body-postition">
+  <div class="pt-3 row">
+    <div class="col-md-8 col-lg-8 col-sm-12">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb custom-breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="javascript:;"> {{ course.category }}</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{ course.subCategory }}
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <h3 class="title">{{ course.name }}</h3>
+          <h6 class="created-by">{{ course.createdBy }}</h6>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="bg-content">
+            <p [innerHTML]="course.description"></p>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <h3 class="course-content">Course Content ></h3>
+
+          <div class="chapters">
+            <ng-container *ngIf="course.chapters !== undefined; else nodata">
+              <accordion [isAnimated]="true" [closeOthers]="true">
+                <accordion-group
+                  *ngFor="let chapter of course.chapters"
+                  [heading]="chapter.title"
+                  [isOpen]="isFirstOpen"
+                >
+                  {{ chapter.description }}
+                </accordion-group>
+              </accordion>
+            </ng-container>
+
+            <ng-template #nodata>
+              <p class="no-data">Course content not available!</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-12">
+      <div class="card">
+        <img
+          src="http://via.placeholder.com/300"
+          class="card-img-top"
+          alt="..."
+        />
+
+        <div *ngIf="!isCourseDetail" class="card-body">
+          <p class="card-text">
+            {{ course.price }} Original Price {{ course.price }} Discount
+            {{ course.discount }} off
+          </p>
+          <button
+            class="btn btn-lg btn-block btn-success"
+            [disabled]="httpService.userRole !== 'student'"
+            (click)="enrolleNow(course._id)"
+          >
+            Enroll Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="body-postition">
+    <form [formGroup]="staffForm" (ngSubmit)="submitForm(staffForm.value)">
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblFirstName">First Name</label>
+                <input type="text" class="form-control" name="First Name" id="txtFirstName" formControlName="firstname">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblLastName">Last Name</label>
+                <input type="text" class="form-control" name="Last Name" id="txtLastName" formControlName="lastname">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblProfileLogo">Profile logo</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" #fileUploadImg
+                        accept="image/png, image/gif, image/jpeg" (change)="fileSelectChange($event)">
+                    <label class="custom-file-label" for="customFile">{{profileImg == ''? 'Upload file' :
+                        profileImg}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCollageName">Collage Name</label>
+                <select class="form-control" formControlName="college" name="Collage Name" id="txtCollageName" (change)="getDepartMentList(collageList,staffForm.value)">
+                    <option *ngFor="let item of collageList" [value]="item._id">{{item.name}}
+                        {{item.lastname}}</option>
+                </select>
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblDepartment">Department</label>
+                <select class="form-control" formControlName="department" name="Department Name" id="txtDepartmentName">
+                    <option *ngFor="let item of departMentList" [value]="item">{{item}}
+                        {{item.lastname}}</option>
+                </select>
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblDateOfBirth">Date of Birth</label>
+                <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="dob"
+                    [bsConfig]="httpService.bsConfig">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblPhoneNo">Phone No.</label>
+                <input type="text" class="form-control" name="Phone No" id="txtPhoneNo" formControlName="phone">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblEmail">Email</label>
+                <input type="text" class="form-control" name="Email" id="txtEmail" formControlName="email">
+            </div>
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblDateOfJoining">Date of Joining</label>
+                <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="dateofjoining"
+                    [bsConfig]="httpService.bsConfig">
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-4 col-md-4 col-sm-12">
+                <label id="lblCourseName">Course Name</label>
+                <select class="form-control" formControlName="coursename" name="Course Name" id="txtCourseName">
+                    <option *ngFor="let item of courseList" [value]="item._id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="pt-3 row">
+            <div class="pt-2 col-lg-2 col-md-6 col-sm-12">
+                <button type="submit" [disabled]="!staffForm.valid"
+                    class="btn btn-lg btn-block btn-success">{{isEdit ? "Edit" : "Add"}}</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,21 @@
+<div class="body-postition std-clg-listing">
+  <div class="pt-3 row">
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <h4 class="title">Categories</h4>
+    </div>
+
+    <div class="col-md-6 col-lg-6 col-sm-12 text-right">
+      <button
+        routerLink="{{ '/' + httpService.userRole + '/category/add' }}"
+        type="button"
+        class="btn btn-lg btn-success"
+      >
+        <i class="fa fa-plus"></i> Add Category
+      </button>
+    </div>
+
+    <div class="pt-4 pb-2 col-md-12 col-lg-12 col-sm-12">
+      <div id="categories-table" class="tabulator-table"></div>
+    </div>
+  </div>
+</div>

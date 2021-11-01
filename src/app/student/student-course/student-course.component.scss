@@ -1,0 +1,47 @@
+h3,h4{
+    text-transform: uppercase;
+    display: block;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+h4{
+    text-transform:unset;
+    font-size: 1rem;
+}
+.card {
+    background-color: transparent !important;
+    border: 0px !important;
+    height: 20vh;
+    .card-body {
+        text-align: left;
+        padding: 0% 0%;
+        img {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .card-detail {
+            color: white;
+            font-weight: 400;
+            font-size: 16px;
+        }
+        p{
+            padding: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-viewmore {
+            width: 100% !important;
+            background-color: #f3663b;
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            width: 14vh;
+            font-weight: 500;
+            font-size: 10px;
+            float: right;
+        }
+    }
+}

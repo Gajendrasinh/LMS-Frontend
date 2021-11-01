@@ -1,0 +1,22 @@
+<div class="modal-body">
+    <div class="container common-alert">
+        <a href="javascript:void(0)" (click)="close('N')"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <h2>{{title}}</h2>
+        <div class="pt-2 row">
+            <div class="pb-4 col-md-12 p-r-l-10">
+                <label id="lblPerission">Module Perission</label>
+                <ng-select [multiple]="true" [clearable]="true" [(ngModel)]="assignRole"
+                    placeholder="Select module">
+                    <ng-option *ngFor="let item of roleList" [value]="item._id">{{item.name}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="pb-2 col-md-6">
+                <button type="button" class="btn btn-lg btn-block btn-success"
+                    (click)="updatePermission()">Update</button>
+            </div>
+            <div class="pb-2 col-md-6">
+                <button type="button" class="btn btn-lg btn-block btn-success" (click)="close('N')">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

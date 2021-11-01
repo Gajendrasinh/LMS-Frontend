@@ -1,0 +1,70 @@
+<div class="body-postition">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <form [formGroup]="webinarForm">
+        <div
+          class="btn-group btn-group-toggle w-100"
+          ngbRadioGroup
+          name="radioBasic"
+          formControlName="webinarList"
+        >
+          <label
+            ngbButtonLabel
+            class="btn-primary"
+            (click)="getWebinarList('ongoing')"
+          >
+            <input ngbButton type="radio" value="ongoing" /> Onging Webinar
+          </label>
+          <label
+            ngbButtonLabel
+            class="btn-primary"
+            (click)="getWebinarList('upcoming')"
+          >
+            <input ngbButton type="radio" value="upcoming" /> Upcoming Webinar
+          </label>
+          <label
+            ngbButtonLabel
+            class="btn-primary"
+            (click)="getWebinarList('completed')"
+          >
+            <input ngbButton type="radio" value="completed" /> Completed Webinar
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="pt-4 row">
+    <ng-container *ngIf="webinarList.length > 0; else nodata">
+      <div
+        class="pb-4 col-lg-3 col-md-6 col-sm-12"
+        *ngFor="let i of webinarList"
+      >
+        <div class="card">
+          <div class="card-body">
+            <p class="card-title">{{ i.name }}</p>
+            <p class="card-detail">{{ i.personname }}</p>
+            <button
+              *ngIf="webinarForm.value['webinarList'] != 'completed'"
+              disabled="i.url == ''"
+              type="button"
+              class="btn btn-join-webinar"
+              (click)="joinMeeting(i.url, i.password)"
+            >
+              Join
+            </button>
+            <span class="card-time"
+              ><i class="fa fa-clock-o" aria-hidden="true"></i>
+              {{ i.time }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #nodata>
+      <div class="pb-4 col-lg-12 col-md-12 col-sm-12">
+        <p class="no-data">No data found!</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

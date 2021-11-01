@@ -1,0 +1,184 @@
+<div class="body-postition">
+  <div class="row">
+    <div class="col-lg-7 col-md-12 col-sm-12">
+      <div class="row page-title">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+          <h3>{{ httpService.userRole }} Dashboard</h3>
+        </div>
+        <div class="pt-2 col-lg-4 col-md-4 col-sm-4 pull-right">
+          <span class="icon-cal-select"
+            ><i class="fa fa-calendar pr-2" aria-hidden="true"></i
+            >{{ filterDate | date: "dd-MMM-yyyy" }}</span
+          >
+          <!-- <i class="fa fa-calendar pr-2" aria-hidden="true"
+                            #datepickerYMD="bsDatepicker" bsDatepicker [bsConfig]="httpService.bsConfig"
+                            [(ngModel)]="filterDate"></i> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-lg-8">
+          <div class="row">
+            <div class="pt-4 col-md-6 col-lg-6">
+              <div class="card">
+                <a
+                  href="javascript:void(0)"
+                  class="card-body"
+                  routerLink="{{
+                    '/' + httpService.userRole + '/studentListing'
+                  }}"
+                >
+                  <img src="./assets/img/reading-book.png" />
+                  <span class="card-title">Students</span>
+                </a>
+              </div>
+            </div>
+            <div class="pt-4 col-md-6 col-lg-6">
+              <div class="card">
+                <a
+                  href="javascript:void(0)"
+                  class="card-body"
+                  routerLink="{{
+                    '/' + httpService.userRole + '/collageListing'
+                  }}"
+                >
+                  <img src="./assets/img/school.png" />
+                  <span class="card-title">Collages</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="pt-4 col-md-6 col-lg-6">
+              <div class="card">
+                <a
+                  href="javascript:void(0)"
+                  class="card-body"
+                  routerLink="{{ '/' + httpService.userRole + '/conductExam' }}"
+                >
+                  <img src="./assets/img/test.png" />
+                  <span class="card-title">Exams</span>
+                </a>
+              </div>
+            </div>
+            <div class="pt-4 col-md-6 col-lg-6">
+              <div class="card">
+                <a
+                  href="javascript:void(0)"
+                  class="card-body"
+                  routerLink="{{
+                    '/' + httpService.userRole + '/courses/by-categories'
+                  }}"
+                >
+                  <img src="./assets/img/academic.png" />
+                  <span class="card-title">Courses</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pt-4 col-md-4 col-lg-4 card-xl">
+          <div class="card">
+            <a
+              href="javascript:void(0)"
+              class="card-body"
+              routerLink="{{ '/' + httpService.userRole + '/webinarList' }}"
+            >
+              <img src="./assets/img/webinar.png" />
+              <span class="card-title">Webinar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a href="javascript:void(0)" class="card-body">
+              <img src="./assets/img/files.png" />
+              <span class="card-title">File Bank</span>
+            </a>
+          </div>
+        </div> -->
+        <!-- <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a href="javascript:void(0)" class="card-body">
+              <img src="./assets/img/analytics.png" />
+              <span class="card-title">Analysis</span>
+            </a>
+          </div>
+        </div> -->
+        <!-- <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a href="javascript:void(0)" class="card-body">
+              <img src="./assets/img/box.png" />
+              <span class="card-title">Package</span>
+            </a>
+          </div>
+        </div> -->
+        <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a
+              href="javascript:void(0)"
+              class="card-body"
+              routerLink="{{ '/' + httpService.userRole + '/feedBackListing' }}"
+            >
+              <img src="./assets/img/box.png" />
+              <span class="card-title">Feedback</span>
+            </a>
+          </div>
+        </div>
+        <!-- <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a
+              href="javascript:void(0)"
+              class="card-body"
+              routerLink="{{ '/' + httpService.userRole + '/user' }}"
+            >
+              <img src="./assets/img/box.png" />
+              <span class="card-title">User</span>
+            </a>
+          </div>
+        </div> -->
+        <!-- <div class="pt-4 col-md-4 col-lg-4">
+          <div class="card">
+            <a
+              href="javascript:void(0)"
+              class="card-body"
+              routerLink="{{ '/' + httpService.userRole + '/module' }}"
+            >
+              <img src="./assets/img/box.png" />
+              <span class="card-title">Module</span>
+            </a>
+          </div>
+        </div> -->
+        <div class="pt-4 col-md-4 col-lg-4" *ngIf="httpService.userRole == 'admin'" >
+          <div class="card">
+            <a href="javascript:void(0)" class="card-body" routerLink="{{ '/' + httpService.userRole + '/categories' }}" >
+              <img src="./assets/img/box.png" />
+              <span class="card-title">Categories</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pt-4 col-md-4 col-lg-4" *ngIf="httpService.userRole == 'admin'" >
+          <div class="card">
+            <a href="javascript:void(0)" class="card-body" routerLink="{{ '/' + httpService.userRole + '/webinarAttendance' }}" >
+              <img src="./assets/img/box.png" />
+              <span class="card-title">Webinar attendance</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-12 col-sm-12 bl-left-border">
+      <echarts
+        *ngIf="!isNoDataChart"
+        [options]="chartOption"
+        [autoResize]="true"
+        [initOpts]="initOpts"
+        class="bar-chart"
+      ></echarts>
+      <span *ngIf="isNoDataChart">No chart data Found</span>
+    </div>
+  </div>
+</div>

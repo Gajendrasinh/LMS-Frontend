@@ -1,0 +1,38 @@
+.card {
+    background-color: #2b313d;
+    background-clip: border-box;
+    border: 1px solid #fded1b;
+    border-radius: 1.25rem;
+    height: 20vh;
+    .card-body {
+        text-align: left;
+        padding: 3% 8%;
+        .card-title {
+            color: #f3663b;
+            font-weight: 400;
+            font-size: 20px;
+        }
+        .card-detail {
+            color: white;
+            font-weight: 400;
+            font-size: 16px;
+        }
+        .card-time {
+            color: white;
+            font-weight: 400;
+            font-size: 12px;
+            float: right;
+            left: 13px;
+            padding-top: 12px;
+        }
+        .btn-join-webinar {
+            background-color: #fded1b;
+            color: black;
+            text-transform: uppercase;
+            text-align: center;
+            width: 10vh;
+            font-weight: 500;
+            font-size: 12px;
+        }
+    }
+}

@@ -1,0 +1,144 @@
+<div class="body-postition">
+    <form [formGroup]="examDetailForm" (ngSubmit)="confirmSave(examDetailForm.value)">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div *ngIf="!isRead && !isEdit" class="btn-group btn-group-toggle w-100" ngbRadioGroup name="radioBasic"
+                    formControlName="examType">
+                    <label ngbButtonLabel class="btn-primary" (click)="setExamType('mcq')">
+                        <input ngbButton type="radio" value="mcq"> MCQ
+                    </label>
+                    <label ngbButtonLabel class="btn-primary" (click)="setExamType('essay')">
+                        <input ngbButton type="radio" value="essay"> ESSAY
+                    </label>
+                    <label ngbButtonLabel class="btn-primary" (click)="setExamType('code')">
+                        <input ngbButton type="radio" value="code"> CODE
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="pt-4 row">
+            <div class="col-md-8 col-sm-12">
+                <h3>{{examDetailForm.get('examType').value}} TEST</h3>
+            </div>
+            <div class="col-md-2 col-sm-12 pull-right">
+                <button *ngIf="!isRead" type="button" class="btn btn-lg btn-block btn-success"
+                    (click)="cancel()">Cancel</button>
+            </div>
+            <div class="col-md-2 col-sm-12 pull-right">
+                <button *ngIf="!isRead" type="submit" class="btn btn-lg btn-block btn-success">{{isEdit ? 'Edit' :
+                    'Add'}}</button>
+            </div>
+        </div>
+        <div class="pt-4 row">
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblCourse">Course</label>
+                <ng-select [readonly]="isRead" [class.form-control-plaintext]="isRead" [multiple]="false"
+                    [clearable]="true" formControlName="course" placeholder="Select Course">
+                    <ng-option *ngFor="let item of courseList" [value]="item._id">{{item.name}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblExamName">Exam Name</label>
+                <input type="text" [readonly]="isRead" class="form-control" name="Exam Name" id="txtExamName"
+                    formControlName="name">
+            </div>
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblNoAttamps">No. of Attamps</label>
+                <input type="number" [readonly]="isRead" class="form-control" name="No. of Attamps" id="txtNoAttames"
+                    formControlName="attempts">
+            </div>
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblExamDate">Exam Date</label>
+                <input class="form-control" [readonly]="isRead" #datepickerYMD="bsDatepicker" bsDatepicker
+                    formControlName="date" [bsConfig]="httpService.bsConfig">
+            </div>
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblTimeDuration">Time Duration</label>
+                <input [ngxTimepicker]="picker" [readonly]="isRead" class="form-control" name="Time Duration"
+                    id="txtTimeDuration" formControlName="time">
+                <ngx-material-timepicker #picker></ngx-material-timepicker>
+            </div>
+            <div class="pb-2 col-md-3 col-sm-12">
+                <label id="lblTotalMarks">Total Marks</label>
+                <input type="text" class="form-control" [readonly]="isRead" name="Name of collage" id="txtTotalMarks"
+                    formControlName="total" disabled>
+            </div>
+        </div>
+        <div class="pt-4 row">
+            <div class="col-md-3 col-sm-12">
+                <a *ngIf="!isRead" href="javascript:void(0)" (click)="addNewQuestion(examDetailForm.value)"><i
+                        class="fa fa-plus" aria-hidden="true"></i> Add New Question</a>
+            </div>
+        </div>
+        <div *ngIf="examDetailForm.get('examType').value == 'mcq'">
+            <div class="pt-4 row" *ngFor="let item of mcqQueList; let i = index">
+                <div class="pb-2 col-md-9 col-sm-9">
+                    <label id="lblTotalMarks">Question : {{i+1}} </label>
+                    <span *ngIf="!isRead && isEdit" class="pull-right delete-icon pl-4"
+                        (click)="deleteQuestion(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                    <a *ngIf="!isRead" class="pull-right" href="javascript:void(0)" (click)="addNewOption(item.que)"><i
+                            class="fa fa-plus" aria-hidden="true"></i> Add
+                        Option</a>
+                    <input type="text" [readonly]="isRead" class="form-control" id="{{'mcqQues_' + item.que}}"
+                        formControlName="{{'mcqQues_' + item.que}}">
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12">
+                    <label id="lblProfileLogo">Profile logo</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" #fileUploadImg
+                            accept="image/png, image/gif, image/jpeg" (change)="uploadUserProfile($event,'img',item)">
+                        <label class="custom-file-label" for="customFile">{{profileImg == ''? 'Upload file' :
+                            profileImg}}</label>
+                    </div>
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12">
+                    <label id="lblTotalMarks">Right Answer</label>
+                    <input type="text" [readonly]="isRead" class="form-control" id="{{'mcqQues_' + item.que}}"
+                        formControlName="{{'mcqQues_' + item.que + '_ans'}}">
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12">
+                    <label id="lblTotalMarks">Marks</label>
+                    <input type="number" [readonly]="isRead" class="form-control" id="{{'mcqQues_' + item.que}}"
+                        formControlName="{{'mcqQues_' + item.que + '_mark'}}"
+                        (change)="setMark($event.target.value,examDetailForm.value)">
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12" *ngFor="let option of item.option;let i = index">
+                    <label id="lblTotalMarks">Option {{option.ansCount}}</label>
+                    <input type="text" [readonly]="isRead" class="form-control"
+                        id="{{'mcqQues_' + item.que + '_option_' + option.ansCount}}"
+                        formControlName="{{'mcqQues_' + item.que + '_option_' + option.ansCount}}">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="examDetailForm.get('examType').value == 'essay'">
+            <div class="pt-4 row" *ngFor="let item of eassyQueList">
+                <div class="pb-2 col-md-8 col-sm-10">
+                    <label id="lblTotalMarks">Question : {{item.que}}</label>
+                    <input type="text" [readonly]="isRead" class="form-control" id="{{'essayQues_' + item.que}}"
+                        formControlName="{{'essayQues_' + item.que}}">
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12">
+                    <label id="lblTotalMarks">Marks</label>
+                    <input type="number" [readonly]="isRead" class="form-control" id="{{'mcqQues_' + item.que}}"
+                        formControlName="{{'essayQues_' + item.que + '_mark'}}"
+                        (change)="setMark($event.target.value,examDetailForm.value)">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="examDetailForm.get('examType').value == 'code'">
+            <div class="pt-4 row" *ngFor="let item of codeQueList">
+                <div class="pb-2 col-md-8 col-sm-10">
+                    <label id="lblTotalMarks">Question : {{item.que}}</label>
+                    <input type="text" [readonly]="isRead" class="form-control" id="{{'codeQues_' + item.que}}"
+                        formControlName="{{'codeQues_' + item.que}}">
+                </div>
+                <div class="pb-2 col-md-3 col-sm-12">
+                    <label id="lblTotalMarks">Marks</label>
+                    <input type="number" [readonly]="isRead" class="form-control" id="{{'codeQues_' + item.que}}"
+                        formControlName="{{'codeQues_' + item.que + '_mark'}}"
+                        (change)="setMark($event.target.value,examDetailForm.value)">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
