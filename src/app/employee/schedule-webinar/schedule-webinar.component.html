@@ -9,15 +9,15 @@
             </div>
             <div class="pt-2 col-md-3 col-sm-12">
                 <label id="lblWebinarTime">Webinar Date</label>
-                <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="date"
+                <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="time"
                     [bsConfig]="httpService.bsConfig">
             </div>
-            <div class="pt-2 col-md-3 col-sm-12">
+            <!-- <div class="pt-2 col-md-3 col-sm-12">
                 <label id="lblTimeDuration">Time Duration</label>
                 <input [ngxTimepicker]="picker" class="form-control" name="Time Duration"
                     id="txtTimeDuration" formControlName="time">
                 <ngx-material-timepicker #picker></ngx-material-timepicker>
-            </div>
+            </div> -->
             <div class="pt-2 col-md-3 col-sm-12">
                 <label id="lblCollageName">Collage Name</label>
                 <select class="form-control" formControlName="college" name="Collage Name" id="txtCollageName"
@@ -28,14 +28,14 @@
             </div>
             <div class="pt-2 col-md-3 col-sm-12">
                 <label id="lblDepartment">Department</label>
-                <select class="form-control" formControlName="department" name="Department Name" id="txtDepartmentName">
+                <select class="form-control" formControlName="departement" name="Department Name" id="txtDepartmentName">
                     <option *ngFor="let item of departMentList" [value]="item">{{item}}
                         {{item.lastname}}</option>
                 </select>
             </div>
             <div class="pt-2 col-md-3 col-sm-12">
                 <label id="lblCourseName">Course Name</label>
-                <select class="form-control" formControlName="coursename" name="Course Name" id="txtCourseName">
+                <select class="form-control" formControlName="course" name="Course Name" id="txtCourseName">
                     <option *ngFor="let item of courseList" [value]="item._id">{{item.name}}</option>
                 </select>
             </div>

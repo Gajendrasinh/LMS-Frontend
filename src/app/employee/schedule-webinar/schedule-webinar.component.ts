@@ -27,13 +27,11 @@ export class ScheduleWebinarComponent implements OnInit {
           Validators.required
         ])
       ),
-      personname: new FormControl("", Validators.required),
       password: new FormControl(""),
-      date: new FormControl("", Validators.required),
       time: new FormControl("", Validators.required),
-      college: new FormControl("", Validators.required),
-      department: new FormControl("", Validators.required),
-      coursename: new FormControl("", Validators.required),
+      college: new FormControl(null, Validators.required),
+      departement: new FormControl(null, Validators.required),
+      course: new FormControl(null, Validators.required),
       url: new FormControl("", Validators.required),
     });
 
@@ -53,6 +51,9 @@ export class ScheduleWebinarComponent implements OnInit {
     addWebinar['password'] = val.password ? val.password : '';
     addWebinar['time'] = val.time ? val.time : '';
     addWebinar['url'] = val.url ? val.url : '';
+    addWebinar['college'] = val.college  ? val.college  : '';
+    addWebinar['course'] = val.course ? val.course : '';
+    addWebinar['departement'] = val.departement ? val.departement : '';
 
 
     this.httpService.httpRequest("employee/webinar/add", addWebinar, "post", false, true).subscribe((resp) => {
@@ -94,7 +95,7 @@ export class ScheduleWebinarComponent implements OnInit {
   getDepartMentList(clgList: any, formVal: any) {
     this.departMentList = [];
     clgList.forEach(clg => {
-      if (clg._id == formVal.college) this.departMentList = clg.department;
+      if (clg._id == formVal.college)  this.departMentList = clg.department;
     });
   }
 

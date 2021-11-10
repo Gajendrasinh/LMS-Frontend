@@ -26,6 +26,7 @@
     "@ng-select/ng-select": "^7.2.0",
     "bootstrap": "^4.4.0",
     "echarts": "^5.2.1",
+    "extendable-media-recorder": "^6.5.9",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^6.2.0",
