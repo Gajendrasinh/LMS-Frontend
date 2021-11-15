@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from 'src/app/service/http.service';
+import { VideoWatchPopupComponent } from 'src/app/video-watch-popup/video-watch-popup.component';
 import Tabulator from 'tabulator-tables';
 
 @Component({
@@ -26,7 +28,7 @@ export class CommonListingTblComponent implements OnInit {
   perviousExamResultList: any[] = [];
   examCheckList: any[] = [];
 
-  constructor(public router: Router, public httpService: HttpService) { }
+  constructor(public router: Router, public httpService: HttpService, public modelService: NgbModal) { }
 
   ngOnInit(): void {
     if (this.router.url.startsWith("/" + this.httpService.userRole + "/upCommingTest")) {
@@ -459,7 +461,7 @@ export class CommonListingTblComponent implements OnInit {
       },
       columns: [
         {
-          title: "Action", formatter: this.httpService.editAction, align: "center", width: 75, headerSort: false, cellClick: (e: any, cell: any) => {
+          title: "Action", formatter: this.httpService.editWatchAction, align: "center", width: 75, headerSort: false, cellClick: (e: any, cell: any) => {
             if (e.target.id == "edit") {
               let id = cell._cell.row.data?.studentId;
               this.httpService.tempExamMarkingDetail = cell._cell.row.data;
@@ -467,6 +469,8 @@ export class CommonListingTblComponent implements OnInit {
                 this.router.navigateByUrl(this.httpService.userRole + "/examMarking/" + id);
               else
                 this.httpService.showToastMsgHandler('info', 'Something wrong please try again');
+            } else if (e.target.id == 'videoWatch') {
+              this.examVideoModalpopup(cell._cell.row.data);
             }
           }
         },
@@ -484,6 +488,14 @@ export class CommonListingTblComponent implements OnInit {
     this.httpService.spinner.show();
     this.httpService.ajaxConfig.headers.Authorization = this.httpService.getToken('accessToken')
     this.examCheckTbl.setData(this.httpService.wshost + 'employee/exam/pending/list', "", this.httpService.ajaxConfig);
+  }
+
+  examVideoModalpopup(colData: any) {
+    const modalRef = this.modelService.open(VideoWatchPopupComponent, { centered: true, backdrop: 'static', keyboard: false })
+    modalRef.componentInstance.data = colData;
+
+    modalRef.result.then((result) => {
+    })
   }
 
 }

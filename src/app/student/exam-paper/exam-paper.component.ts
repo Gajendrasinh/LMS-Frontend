@@ -12,6 +12,7 @@ declare var MediaRecorder: any;
   styleUrls: ['./exam-paper.component.scss'],
 })
 export class ExamPaperComponent implements OnInit {
+  @ViewChild('recordedVideo') recordVideoElementRef: ElementRef;
   @ViewChild('video') videoElementRef: ElementRef;
 
   editor: Editor;
@@ -47,6 +48,7 @@ export class ExamPaperComponent implements OnInit {
     });
   }
 
+  recordVideoElement: HTMLVideoElement;
 
   async ngOnInit() {
     this.editor = new Editor();
@@ -60,9 +62,78 @@ export class ExamPaperComponent implements OnInit {
       .then(stream => {
         this.isAccessForCamera = true;
         this.videoElement = this.videoElementRef.nativeElement;
+        this.recordVideoElement = this.recordVideoElementRef.nativeElement;
         this.stream = stream;
         this.videoElement.srcObject = this.stream;
       });
+  }
+
+  startRecording() {
+    this.recordedBlobs = [];
+    let options: any = { mimeType: 'video/webm' };
+
+    try {
+      this.mediaRecorder = new MediaRecorder(this.stream, options);
+      this.getQuestionPaper(this.examId);
+    } catch (err) {
+      this.alert('warning', err);
+    }
+
+    this.mediaRecorder?.start();
+    this.onDataAvailableEvent();
+    this.onStopRecordingEvent();
+  }
+
+  stopRecording() {
+    this.mediaRecorder?.stop();
+  }
+
+  playRecording() {
+    if (!this.recordedBlobs || !this.recordedBlobs.length) {
+      console.log('cannot play.');
+      return;
+    }
+    this.recordVideoElement.play();
+  }
+
+  onDataAvailableEvent() {
+    try {
+      this.mediaRecorder.ondataavailable = (event: any) => {
+        if (event.data && event.data.size > 0) {
+          this.recordedBlobs.push(event.data);
+        }
+      };
+    } catch (err) {
+      this.alert('warning', err);
+    }
+  }
+
+  onStopRecordingEvent() {
+    try {
+      this.mediaRecorder.onstop = (event: Event) => {
+        let urlEndPoint;
+        let obj = new FormData();
+        const videoBuffer = new Blob(this.recordedBlobs, {
+          type: 'video/webm'
+        });
+        this.recordVideoElement.src = window.URL.createObjectURL(videoBuffer);
+        let videoFile = new File(this.recordedBlobs, 'text.webm', { type: 'video/webm' })
+        urlEndPoint = "upload/file?folder=images";
+        obj.append("file", videoFile, videoFile.name);
+
+        this.httpService.httpRequest(urlEndPoint, obj, "post", true, false).subscribe((resp) => {
+          if (resp.status == "success" && resp.responseCode == "200") {
+            this.videoUrl = resp.data.path;
+            this.submitTest();
+          } else {
+            this.alert('warning', 'Someting went wrong while file sumit exam Please try again');
+            this.httpService.spinner.hide();
+          }
+        })
+      };
+    } catch (err) {
+      this.alert('warning', err);
+    }
   }
 
   async getQuestionPaper(id: String) {
@@ -187,17 +258,13 @@ export class ExamPaperComponent implements OnInit {
       answers: this.selectedOptions,
       videoUrl: this.videoUrl
     };
-    console.log("body",body);
-    console.log("video path",this.videoUrl);
     const url = `student/exam-paper/${this.examId}`;
-    this.httpService
-      .httpRequest(url, body, 'post', false, true)
-      .subscribe((resp) => {
-        if (resp.status === 'success' && resp.responseCode === 200) {
-          this.alert('success', resp.data.message, 'exam');
-        }
-        this.httpService.spinner.hide();
-      });
+    this.httpService.httpRequest(url, body, 'post', false, true).subscribe((resp) => {
+      if (resp.status === 'success' && resp.responseCode === 200) {
+        this.alert('success', resp.data.message, 'exam');
+      }
+      this.httpService.spinner.hide();
+    });
   }
 
   handleEssay(event: any, type: any) {
@@ -220,11 +287,8 @@ export class ExamPaperComponent implements OnInit {
     modalRef.componentInstance.data = initialState;
 
     modalRef.result.then((result) => {
-      if (
-        callfrom != undefined &&
-        callfrom == 'examConfirmAlert' &&
-        result == 'Y'
-      ) {
+      console.log("result",result);
+      if (callfrom != undefined && callfrom == 'examConfirmAlert' && result == 'Y') {
         this.stopRecording();
       } else if (callfrom != undefined && callfrom == 'exam' && result == 'Y') {
         this.router.navigateByUrl('student/upCommingTest');
@@ -262,71 +326,6 @@ export class ExamPaperComponent implements OnInit {
     } else if (type == 'cancel') {
       this.router.navigateByUrl(this.httpService.userRole + '/upCommingTest');
     }
-  }
-
-  startRecording() {
-    this.recordedBlobs = [];
-    let options: any = { mimeType: 'video/webm' };
-
-    try {
-      this.mediaRecorder = new MediaRecorder(this.stream, options);
-      this.getQuestionPaper(this.examId);
-    } catch (err) {
-      this.alert('warning', 'Something went wrong with camera access');
-      console.log(err);
-    }
-
-    this.mediaRecorder?.start();
-    this.onDataAvailableEvent();
-    this.onStopRecordingEvent();
-  }
-
-  stopRecording() {
-    this.mediaRecorder?.stop();
-    this.uploadExamVideo();
-  }
-
-  onDataAvailableEvent() {
-    try {
-      this.mediaRecorder.ondataavailable = (event: any) => {
-        if (event.data && event.data.size > 0) {
-          this.recordedBlobs.push(event.data);
-        }
-      };
-    } catch (error) {
-      this.alert('error', error);
-    }
-  }
-
-  onStopRecordingEvent() {
-    try {
-      this.mediaRecorder.onstop = (event: Event) => {
-        const videoBuffer = new Blob(this.recordedBlobs, {
-          type: 'video/mp4'
-        });
-      };
-    } catch (error) {
-      this.alert('error', error);
-    }
-  }
-
-  uploadExamVideo() {
-    let urlEndPoint;
-    let obj = new FormData();
-    urlEndPoint = "upload/file?folder=images";
-    let videoFile = new File(this.recordedBlobs, 'text.mp4', { type: 'video/mp4' })
-    obj.append("file", videoFile, videoFile.name);
-
-
-    this.httpService.httpRequest(urlEndPoint, obj, "post", true, false).subscribe((resp) => {
-      if (resp.status == "success" && resp.responseCode == "200") {
-        this.videoUrl = resp.data.path;
-        this.submitTest();
-      } else {
-        this.alert('warning', 'Someting went wrong while file sumit exam Please try again');
-        this.httpService.spinner.hide();
-      }
-    })
   }
 
 }

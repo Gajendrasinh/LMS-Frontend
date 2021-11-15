@@ -11,6 +11,7 @@ import { HttpService } from 'src/app/service/http.service';
 })
 export class WebinarListingComponent implements OnInit {
   public webinarForm: FormGroup;
+  clgId: any;
   webinarList: any[] = [];
   count: any[] = [];
   webInarflitter: any = 'ongoing';
@@ -20,9 +21,10 @@ export class WebinarListingComponent implements OnInit {
     private router: Router,
     private httpService: HttpService,
     public datepipe: DatePipe
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.clgId = this.httpService.userRole == 'college' ? this.httpService.userDetail._id : this.httpService.userDetail?.college?._id;
     this.webinarForm = this.formBuilder.group({
       webinarList: new FormControl('ongoing'),
     });
@@ -38,15 +40,8 @@ export class WebinarListingComponent implements OnInit {
 
   getWebinarList(val) {
     this.httpService.spinner.show();
-    this.httpService
-      .httpRequest(
-        'employee/webinar/list?status=' + val,
-        '',
-        'get',
-        false,
-        true
-      )
-      .subscribe((resp) => {
+    if(this.clgId != undefined && this.clgId != null){
+      this.httpService.httpRequest('employee/webinar/' + this.clgId + '/list?status=' + val, '', 'get', false, true).subscribe((resp) => {
         if (resp.status == 'success' && resp.responseCode == '200') {
           this.webinarList = [];
           resp.data?.list?.list?.forEach((item) => {
@@ -55,6 +50,9 @@ export class WebinarListingComponent implements OnInit {
         }
         this.httpService.spinner.hide();
       });
+    }else{
+      console.log("webinar clg id not found");
+    }
   }
 
   joinMeeting(url: any, pass: any) {

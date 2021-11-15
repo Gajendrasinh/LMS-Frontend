@@ -65,6 +65,7 @@ import { AddUpdateModuleComponent } from './employee/module-listing/add-update-m
 import { ModuleListingComponent } from './employee/module-listing/module-listing.component';
 import { ExamPaperCheckComponent } from './collage/exam-paper-check/exam-paper-check.component';
 import { StudentCourseDetailsComponent } from './student/student-course-details/student-course-details.component';
+import { VideoWatchPopupComponent } from './video-watch-popup/video-watch-popup.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { StudentCourseDetailsComponent } from './student/student-course-details/
     ModuleListingComponent,
     AddUpdateModuleComponent,
     ExamPaperCheckComponent,
-    StudentCourseDetailsComponent
+    StudentCourseDetailsComponent,
+    VideoWatchPopupComponent
   ],
   imports: [
     CommonModule,
@@ -141,7 +143,7 @@ import { StudentCourseDetailsComponent } from './student/student-course-details/
     NgxEditorModule,
     AccordionModule.forRoot(),
   ],
-  entryComponents: [AddRecordsPopupComponent, CommonAlertComponent, ForgetPasswordPopupComponent, AddUpdateUserPermissionComponent, AddUpdateModuleComponent],
+  entryComponents: [AddRecordsPopupComponent, CommonAlertComponent, ForgetPasswordPopupComponent, AddUpdateUserPermissionComponent, AddUpdateModuleComponent,VideoWatchPopupComponent],
   providers: [HttpService, BulkUploadCsvService, DatePipe],
   bootstrap: [AppComponent],
 })

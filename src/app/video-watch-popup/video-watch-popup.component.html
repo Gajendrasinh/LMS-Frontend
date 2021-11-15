@@ -1,0 +1,15 @@
+<div class="modal-body">
+    <div class="container common-alert">
+        <a href="javascript:void(0)" (click)="close('N')"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <h2>Exam Video</h2>
+        <div class="pt-2 row">
+            <div class="pb-4 col-md-12 p-r-l-10">
+                <video *ngIf="videoUrl != 'undefined'" width="420" height="340"
+                    controls>
+                    <source [src]="videoUrl" type="video/mp4">
+                </video>
+                <span *ngIf="videoUrl == 'undefined'">Video Not Found</span>
+            </div>
+        </div>
+    </div>
+</div>

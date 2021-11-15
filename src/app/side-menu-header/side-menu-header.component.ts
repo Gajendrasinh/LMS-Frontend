@@ -42,6 +42,11 @@ export class SideMenuHeaderComponent implements OnInit {
       menuName: 'Webinar',
       routeLink: '/admin/setwebinar',
       imgFont: './assets/img/menu-webinar.png',
+    } ,
+    {
+      menuName: 'Exam Marking',
+      routeLink: '/admin/examCheck',
+      imgFont: './assets/img/menu-test.png',
     },
   ]);
   // ,
@@ -74,6 +79,11 @@ export class SideMenuHeaderComponent implements OnInit {
       menuName: 'Package',
       routeLink: '/employee/dashboard',
       imgFont: './assets/img/menu-box.png',
+    },
+    {
+      menuName: 'Exam Marking',
+      routeLink: '/employee/examCheck',
+      imgFont: './assets/img/menu-test.png',
     },
   ]);
 

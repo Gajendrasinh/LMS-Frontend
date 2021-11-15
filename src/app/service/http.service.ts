@@ -55,6 +55,15 @@ export class HttpService {
     return '<i class="pl-1 fa fa-pencil-square-o action-btn" aria-hidden="true" title="edit" id="edit"></i>';
   };
 
+  editWatchAction = (cell: any) => {
+    if(cell._cell.row.data?.video != undefined && cell._cell.row.data?.video != null){
+      return '<i class="pl-1 fa fa-pencil-square-o action-btn" aria-hidden="true" title="edit" id="edit"></i>' +
+      '<i class="pl-1 fa fa-video-camera action-btn" aria-hidden="true" title="videoWatch" id="videoWatch"></i>';
+    }else{
+      return '<i class="pl-1 fa fa-pencil-square-o action-btn" aria-hidden="true" title="edit" id="edit"></i>';
+    }
+  };
+
   examActionBox = (cell: any) => {
     return (
       '<i class="pl-1 fa fa-eye action-btn" aria-hidden="true" title="view" id="view"></i>' +

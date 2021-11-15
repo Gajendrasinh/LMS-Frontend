@@ -68,6 +68,7 @@ const routes: Routes = [
   { path: 'employee/user', component: UserPermissionListingComponent },
   { path: 'employee/module', component: ModuleListingComponent },
   { path: 'employee/webinarAttendance', component: CommonListingTblComponent },
+  { path: 'employee/examCheck', component: CommonListingTblComponent },
 
   { path: 'admin/categories', component: CategoryComponent },
   { path: 'admin/category/add', component: AddCategoryComponent },
@@ -103,6 +104,7 @@ const routes: Routes = [
   { path: 'admin/user', component: UserPermissionListingComponent },
   { path: 'admin/module', component: ModuleListingComponent },
   { path: 'admin/webinarAttendance', component: CommonListingTblComponent },
+  { path: 'admin/examCheck', component: CommonListingTblComponent },
 
 
   { path: 'college/login', component: LoginComponent },
